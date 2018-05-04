@@ -20,24 +20,26 @@ class HeaderTable extends React.Component {
           style={styles.containerButton}
           className="buttonHeader"
         >
-          <p>Tickers {this.renderArrow(orderedByAlphabet)}</p>
+          <p style={styles.text}>
+            Tickers {this.renderArrow(orderedByAlphabet)}
+          </p>
         </div>
         <div
           onClick={orderByVolume}
           style={styles.containerButton}
           className="buttonHeader"
         >
-          <p>Volume {this.renderArrow(orderedByVolume)}</p>
+          <p style={styles.text}>Volume {this.renderArrow(orderedByVolume)}</p>
         </div>
         <div
           onClick={orderByPrice}
           style={styles.containerButton}
           className="buttonHeader"
         >
-          <p>Price {this.renderArrow(orderedByPrice)}</p>
+          <p style={styles.text}>Price {this.renderArrow(orderedByPrice)}</p>
         </div>
         <div style={styles.containerButton} className="buttonHeader">
-          <p>Change</p>
+          <p style={styles.text}>Change</p>
         </div>
       </div>
     );
@@ -56,6 +58,9 @@ const styles = {
     alignText: "center",
     display: "flex",
     justifyContent: "center"
+  },
+  text: {
+    fontStyle: "italic"
   }
 };
 

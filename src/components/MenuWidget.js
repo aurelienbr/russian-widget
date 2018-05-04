@@ -1,24 +1,43 @@
 import React from "react";
 
 class MenuWidget extends React.Component {
-  render() {
+  state = {
+    selected: "ALL"
+  };
+  findCurrency = name => {
     const { findByCurrency, resetArray, renderFavorites } = this.props;
+
+    if (name === "ALL") {
+      resetArray();
+    } else if (name === "FAVS") {
+      renderFavorites();
+    } else {
+      findByCurrency(name);
+    }
+    this.setState({
+      selected: name
+    });
+  };
+
+  render() {
+    const { selected } = this.state;
+
     return (
       <div style={styles.container}>
-        <div onClick={resetArray} className="buttonHeader">
-          <p>ALL</p>
+        <div onClick={() => this.findCurrency("ALL")} className="buttonHeader">
+          <p style={selected === "ALL" ? styles.buttonSelected : {}}>ALL</p>
         </div>
-        <div onClick={() => findByCurrency("BTC")} className="buttonHeader">
-          <p>BTC</p>
+        <div onClick={() => this.findCurrency("BTC")} className="buttonHeader">
+          <p style={selected === "BTC" ? styles.buttonSelected : {}}>BTC</p>
         </div>
-        <div onClick={() => findByCurrency("ETH")} className="buttonHeader">
-          <p>ETH</p>
+        <div onClick={() => this.findCurrency("ETH")} className="buttonHeader">
+          <p style={selected === "ETH" ? styles.buttonSelected : {}}>ETH</p>
         </div>
-        <div onClick={() => findByCurrency("FIAT")} className="buttonHeader">
-          <p>FIAT</p>
+        <div onClick={() => this.findCurrency("FIAT")} className="buttonHeader">
+          <p style={selected === "FIAT" ? styles.buttonSelected : {}}>FIAT</p>
         </div>
-        <div onClick={renderFavorites} className="buttonHeader">
-          <p>FAVS</p>
+        <div onClick={() => this.findCurrency("FAVS")} className="buttonHeader">
+          <p style={selected === "FAVS" ? styles.buttonSelected : {}}>FAVS</p>
         </div>
       </div>
     );
@@ -31,6 +50,10 @@ const styles = {
     display: "flex",
     justifyContent: "space-around",
     flex: 1
+  },
+  buttonSelected: {
+    fontWeight: "bold",
+    borderBottom: "2px solid black"
   }
 };
 
