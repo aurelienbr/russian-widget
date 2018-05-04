@@ -12,6 +12,8 @@ class App extends Component {
   state = {
     data: [],
     originalData: [],
+    dataInput: [],
+    value: "",
     renderFav: false,
     width: 0,
     loading: true,
@@ -29,6 +31,7 @@ class App extends Component {
     });
     axios.get(API + "/api/fo/Market/GetMarkets").then(response => {
       let finalArray = [];
+      let dataInput = [];
       let index = 0;
       response.data.marketsList.forEach(element => {
         element.derivedCurrencyList.forEach(newArray => {
@@ -45,10 +48,18 @@ class App extends Component {
           ];
           index++;
         });
+        dataInput = finalArray.map((element, i) => {
+          return {
+            value: element.currencyName,
+            label: element.currencyName
+          };
+        });
       });
+
       this.setState({
         data: finalArray,
         originalData: finalArray,
+        dataInput,
         loading: false
       });
     });
@@ -180,6 +191,8 @@ class App extends Component {
     });
   };
 
+  handleInput = value => this.setState({ value });
+
   render() {
     const {
       data,
@@ -188,8 +201,11 @@ class App extends Component {
       orderedByPrice,
       orderedByAlphabet,
       renderFav,
-      orderedByVolume
+      orderedByVolume,
+      dataInput,
+      value
     } = this.state;
+    console.log(dataInput);
     if (loading) {
       return <div />;
     }
@@ -213,6 +229,9 @@ class App extends Component {
           resetArray={this.resetArray}
           findByCurrency={this.findByCurrency}
           renderFavorites={this.renderFavorites}
+          options={dataInput}
+          value={value}
+          onChangeInput={this.handleInput}
         />
         <HeaderTable
           orderedByPrice={orderedByPrice}
