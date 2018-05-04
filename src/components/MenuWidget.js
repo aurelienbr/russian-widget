@@ -14,7 +14,7 @@ class MenuWidget extends React.Component {
         <div onClick={() => findByCurrency("ETH")} className="buttonHeader">
           <p>ETH</p>
         </div>
-        <div className="buttonHeader">
+        <div onClick={() => findByCurrency("FIAT")} className="buttonHeader">
           <p>FIAT</p>
         </div>
         <div onClick={renderFavorites} className="buttonHeader">

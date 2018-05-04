@@ -7,3 +7,7 @@ body {
 .buttonHeader:hover {
   cursor: pointer;
 }
+
+.buttonHeader > p {
+  font-style: italic;
+}

@@ -126,8 +126,10 @@ class App extends Component {
       .map(element => {
         if (element.derivedCurrencyName === currencyName) {
           return {
+            id: element.id,
             derivedCurrencyName: element.currencyName,
-            price: element.price
+            price: element.price,
+            volume: element.volume
           };
         }
       })

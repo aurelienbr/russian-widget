@@ -1,9 +1,8 @@
 import React from "react";
 import ArrowDown from "react-icons/lib/fa/long-arrow-down";
-import ArrowUp from "react-icons/lib/fa/long-arrow-up";
 
 class HeaderTable extends React.Component {
-  renderArrow = value => (value ? <ArrowDown /> : <ArrowUp />);
+  renderArrow = value => (value ? <ArrowDown /> : null);
   render() {
     const {
       orderByAlphabet,
