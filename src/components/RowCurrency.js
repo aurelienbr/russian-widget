@@ -27,6 +27,12 @@ class RowCurrency extends React.Component {
   componentWillunmount() {
     this.webSocketConnection.close();
   }*/
+  renderCurrency(currencyName, derivedCurrencyName) {
+    if (currencyName === undefined) {
+      return derivedCurrencyName;
+    }
+    return `${currencyName} / ${derivedCurrencyName}`;
+  }
   render() {
     const { data } = this.props;
 
@@ -35,7 +41,7 @@ class RowCurrency extends React.Component {
         <div style={styles.containerRow}>
           <div style={styles.containerText}>
             <p style={styles.text}>
-              {data.currencyName} / {data.derivedCurrencyName}
+              {this.renderCurrency(data.currencyName, data.derivedCurrencyName)}
             </p>
           </div>
           <div style={styles.containerText} />

@@ -11,6 +11,7 @@ const API = "https://front.bitqi.com/";
 class App extends Component {
   state = {
     data: {},
+    originalData: {},
     width: 0,
     loading: true,
     orderedByAlphabet: false,
@@ -41,6 +42,7 @@ class App extends Component {
       });
       this.setState({
         data: finalArray,
+        originalData: finalArray,
         loading: false
       });
     });
@@ -90,6 +92,29 @@ class App extends Component {
     });
   };
 
+  findByCurrency = currencyName => {
+    const { originalData } = this.state;
+    const newArray = originalData
+      .map(element => {
+        if (element.derivedCurrencyName === currencyName) {
+          return {
+            derivedCurrencyName: element.currencyName,
+            price: element.price
+          };
+        }
+      })
+      .filter(value => value !== undefined);
+    this.setState({
+      data: newArray
+    });
+  };
+
+  resetArray = () => {
+    this.setState({
+      data: this.state.originalData
+    });
+  };
+
   render() {
     const {
       data,
@@ -117,7 +142,10 @@ class App extends Component {
         }}
       >
         <HeaderWidget />
-        <MenuWidget />
+        <MenuWidget
+          resetArray={this.resetArray}
+          findByCurrency={this.findByCurrency}
+        />
         <HeaderTable
           orderedByPrice={orderedByPrice}
           orderedByAlphabet={orderedByAlphabet}

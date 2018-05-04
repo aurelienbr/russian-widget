@@ -1,32 +1,25 @@
 import React from "react";
 
-const BUTTONS = [
-  {
-    name: "ALL"
-  },
-  {
-    name: "BTC"
-  },
-  {
-    name: "ETH"
-  },
-  {
-    name: "FIAT"
-  },
-  {
-    name: "FAVS"
-  }
-];
-
 class MenuWidget extends React.Component {
   render() {
+    const { findByCurrency, resetArray } = this.props;
     return (
       <div style={styles.container}>
-        {BUTTONS.map(button => (
-          <div key={button.name} className="buttonHeader">
-            <p>{button.name}</p>
-          </div>
-        ))}
+        <div onClick={resetArray} className="buttonHeader">
+          <p>ALL</p>
+        </div>
+        <div onClick={() => findByCurrency("BTC")} className="buttonHeader">
+          <p>BTC</p>
+        </div>
+        <div onClick={() => findByCurrency("ETH")} className="buttonHeader">
+          <p>ETH</p>
+        </div>
+        <div className="buttonHeader">
+          <p>FIAT</p>
+        </div>
+        <div className="buttonHeader">
+          <p>FAVS</p>
+        </div>
       </div>
     );
   }
