@@ -37,6 +37,7 @@ class App extends Component {
             {
               id: index,
               currencyName: element.currencyName,
+              volume: newArray.volume,
               derivedCurrencyName: newArray.derivedCurrencyName,
               price: newArray.price,
               favorite: false
@@ -72,6 +73,28 @@ class App extends Component {
     this.setState({
       data: sortedArray,
       orderedByAlphabet: !this.state.orderedByAlphabet
+    });
+  };
+
+  orderByVolume = () => {
+    const { data, orderedByVolume } = this.state;
+    let sortedArray = [];
+    if (orderedByVolume) {
+      sortedArray = data.sort(function(a, b) {
+        if (a.volume < b.volume) return -1;
+        else if (a.volume > b.volume) return 1;
+        return 0;
+      });
+    } else if (!orderedByVolume) {
+      sortedArray = data.sort(function(a, b) {
+        if (a.volume > b.volume) return -1;
+        else if (a.volume < b.volume) return 1;
+        return 0;
+      });
+    }
+    this.setState({
+      data: sortedArray,
+      orderedByVolume: !this.state.orderedByVolume
     });
   };
 
@@ -162,7 +185,8 @@ class App extends Component {
       loading,
       orderedByPrice,
       orderedByAlphabet,
-      renderFav
+      renderFav,
+      orderedByVolume
     } = this.state;
     if (loading) {
       return <div />;
@@ -191,6 +215,8 @@ class App extends Component {
         <HeaderTable
           orderedByPrice={orderedByPrice}
           orderedByAlphabet={orderedByAlphabet}
+          orderedByVolume={orderedByVolume}
+          orderByVolume={this.orderByVolume}
           orderByPrice={this.orderByPrice}
           orderByAlphabet={this.orderByAlphabet}
         />

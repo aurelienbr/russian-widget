@@ -9,7 +9,9 @@ class HeaderTable extends React.Component {
       orderByAlphabet,
       orderByPrice,
       orderedByAlphabet,
-      orderedByPrice
+      orderedByPrice,
+      orderedByVolume,
+      orderByVolume
     } = this.props;
 
     return (
@@ -21,8 +23,12 @@ class HeaderTable extends React.Component {
         >
           <p>Tickers {this.renderArrow(orderedByAlphabet)}</p>
         </div>
-        <div style={styles.containerButton} className="buttonHeader">
-          <p>Volume</p>
+        <div
+          onClick={orderByVolume}
+          style={styles.containerButton}
+          className="buttonHeader"
+        >
+          <p>Volume {this.renderArrow(orderedByVolume)}</p>
         </div>
         <div
           onClick={orderByPrice}

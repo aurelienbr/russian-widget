@@ -62,7 +62,9 @@ class RowCurrency extends React.Component {
               {this.renderCurrency(data.currencyName, data.derivedCurrencyName)}
             </p>
           </div>
-          <div style={styles.containerText} />
+          <div style={styles.containerText}>
+            <p style={styles.text}>{parseInt(data.volume, 10)}</p>
+          </div>
           <div style={styles.containerText}>
             <p style={styles.text}>{data.price}</p>
           </div>
