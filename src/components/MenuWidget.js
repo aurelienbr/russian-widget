@@ -25,19 +25,44 @@ class MenuWidget extends React.Component {
     return (
       <div style={styles.container}>
         <div onClick={() => this.findCurrency("ALL")} className="buttonHeader">
-          <p style={selected === "ALL" ? styles.buttonSelected : {}}>ALL</p>
+          <p
+            className="textHeader"
+            style={selected === "ALL" ? styles.buttonSelected : {}}
+          >
+            ALL
+          </p>
         </div>
         <div onClick={() => this.findCurrency("BTC")} className="buttonHeader">
-          <p style={selected === "BTC" ? styles.buttonSelected : {}}>BTC</p>
+          <p
+            className="textHeader"
+            style={selected === "BTC" ? styles.buttonSelected : {}}
+          >
+            BTC
+          </p>
         </div>
         <div onClick={() => this.findCurrency("ETH")} className="buttonHeader">
-          <p style={selected === "ETH" ? styles.buttonSelected : {}}>ETH</p>
+          <p
+            className="textHeader"
+            style={selected === "ETH" ? styles.buttonSelected : {}}
+          >
+            ETH
+          </p>
         </div>
         <div onClick={() => this.findCurrency("FIAT")} className="buttonHeader">
-          <p style={selected === "FIAT" ? styles.buttonSelected : {}}>FIAT</p>
+          <p
+            className="textHeader"
+            style={selected === "FIAT" ? styles.buttonSelected : {}}
+          >
+            FIAT
+          </p>
         </div>
         <div onClick={() => this.findCurrency("FAVS")} className="buttonHeader">
-          <p style={selected === "FAVS" ? styles.buttonSelected : {}}>FAVS</p>
+          <p
+            className="textHeader"
+            style={selected === "FAVS" ? styles.buttonSelected : {}}
+          >
+            FAVS
+          </p>
         </div>
       </div>
     );

@@ -15,6 +15,6 @@ body {
   cursor: pointer;
 }
 
-p:hover {
+.textHeader:hover {
   border-bottom: 1px solid black;
 }
