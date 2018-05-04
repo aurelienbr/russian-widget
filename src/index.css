@@ -1,9 +1,20 @@
+@font-face {
+  font-family: "Uni Sans Regular";
+  font-style: normal;
+  font-weight: normal;
+  src: url("utils/fonts/Uni Sans Regular.woff") format("woff");
+}
+
 body {
   margin: 0;
   padding: 0;
-  font-family: sans-serif;
+  font-family: "Uni Sans Regular";
 }
 
 .buttonHeader:hover {
   cursor: pointer;
+}
+
+p:hover {
+  border-bottom: 1px solid black;
 }
