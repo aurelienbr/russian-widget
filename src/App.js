@@ -4,6 +4,7 @@ import axios from "axios";
 import MenuWidget from "./components/MenuWidget";
 import HeaderWidget from "./components/HeaderWidget";
 import MainTable from "./components/MainTable";
+import HeaderTable from "./components/HeaderTable";
 
 const API = "https://front.bitqi.com/";
 
@@ -11,7 +12,9 @@ class App extends Component {
   state = {
     data: {},
     width: 0,
-    loading: true
+    loading: true,
+    orderedByAlphabet: false,
+    orderedByPrice: false
   };
 
   componentDidMount() {
@@ -43,8 +46,58 @@ class App extends Component {
     });
   }
 
+  orderByAlphabet = () => {
+    const { data, orderedByAlphabet } = this.state;
+    let sortedArray = [];
+    if (!orderedByAlphabet) {
+      sortedArray = data.sort(function(a, b) {
+        if (a.currencyName < b.currencyName) return -1;
+        else if (a.currencyName > b.currencyName) return 1;
+        return 0;
+      });
+    } else if (orderedByAlphabet) {
+      sortedArray = data.sort(function(a, b) {
+        if (a.currencyName > b.currencyName) return -1;
+        else if (a.currencyName < b.currencyName) return 1;
+        return 0;
+      });
+    }
+    this.setState({
+      data: sortedArray,
+      orderedByAlphabet: !this.state.orderedByAlphabet
+    });
+  };
+
+  orderByPrice = () => {
+    const { data, orderedByPrice } = this.state;
+    let sortedArray = [];
+    if (orderedByPrice) {
+      sortedArray = data.sort(function(a, b) {
+        if (a.price < b.price) return -1;
+        else if (a.price > b.price) return 1;
+        return 0;
+      });
+    } else if (!orderedByPrice) {
+      sortedArray = data.sort(function(a, b) {
+        if (a.price > b.price) return -1;
+        else if (a.price < b.price) return 1;
+        return 0;
+      });
+    }
+    this.setState({
+      data: sortedArray,
+      orderedByPrice: !this.state.orderedByPrice
+    });
+  };
+
   render() {
-    const { data, width, loading } = this.state;
+    const {
+      data,
+      width,
+      loading,
+      orderedByPrice,
+      orderedByAlphabet
+    } = this.state;
     if (loading) {
       return <div />;
     }
@@ -57,11 +110,20 @@ class App extends Component {
           padding: 20,
           border: "1px solid #95a5a6",
           marginTop: 20,
-          marginLeft: 20
+          marginLeft: 20,
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "space-between"
         }}
       >
         <HeaderWidget />
         <MenuWidget />
+        <HeaderTable
+          orderedByPrice={orderedByPrice}
+          orderedByAlphabet={orderedByAlphabet}
+          orderByPrice={this.orderByPrice}
+          orderByAlphabet={this.orderByAlphabet}
+        />
         <MainTable data={data} />
       </div>
     );

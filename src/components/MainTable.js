@@ -1,13 +1,11 @@
 import React from "react";
 import RowCurrency from "./RowCurrency";
-import HeaderTable from "./HeaderTable";
 
 class MainTable extends React.Component {
   render() {
     const { data } = this.props;
     return (
       <div style={styles.container}>
-        <HeaderTable />
         {data.map(data => <RowCurrency data={data} />)}
       </div>
     );
@@ -16,7 +14,12 @@ class MainTable extends React.Component {
 
 const styles = {
   container: {
-    height: "100%"
+    height: "100%",
+    border: "1px solid #95a5a6",
+    display: "flex",
+    flexDirection: "column",
+    flex: 4,
+    overflowY: "scroll"
   }
 };
 

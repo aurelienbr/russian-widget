@@ -33,17 +33,17 @@ class RowCurrency extends React.Component {
     return (
       <div>
         <div style={styles.containerRow}>
-          <div>
-            <p>
+          <div style={styles.containerText}>
+            <p style={styles.text}>
               {data.currencyName} / {data.derivedCurrencyName}
             </p>
           </div>
-          <div />
-          <div>
-            <p>{data.price}</p>
+          <div style={styles.containerText} />
+          <div style={styles.containerText}>
+            <p style={styles.text}>{data.price}</p>
           </div>
-          <div>
-            <p>change</p>
+          <div style={styles.containerText}>
+            <p style={styles.text}>change</p>
           </div>
         </div>
       </div>
@@ -55,6 +55,11 @@ const styles = {
   containerRow: {
     display: "flex",
     justifyContent: "space-around"
+  },
+  containerText: {
+    flex: 1,
+    display: "flex",
+    justifyContent: "center"
   }
 };
 
