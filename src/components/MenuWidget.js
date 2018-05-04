@@ -2,7 +2,7 @@ import React from "react";
 
 class MenuWidget extends React.Component {
   render() {
-    const { findByCurrency, resetArray } = this.props;
+    const { findByCurrency, resetArray, renderFavorites } = this.props;
     return (
       <div style={styles.container}>
         <div onClick={resetArray} className="buttonHeader">
@@ -17,7 +17,7 @@ class MenuWidget extends React.Component {
         <div className="buttonHeader">
           <p>FIAT</p>
         </div>
-        <div className="buttonHeader">
+        <div onClick={renderFavorites} className="buttonHeader">
           <p>FAVS</p>
         </div>
       </div>

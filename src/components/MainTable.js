@@ -3,10 +3,34 @@ import RowCurrency from "./RowCurrency";
 
 class MainTable extends React.Component {
   render() {
-    const { data } = this.props;
+    const { data, addFavorite, deleteFavorite, renderFav } = this.props;
+
+    if (renderFav) {
+      return (
+        <div style={styles.container}>
+          {data.map(data => {
+            if (data.favorite) {
+              return (
+                <RowCurrency
+                  addFavorite={addFavorite}
+                  deleteFavorite={deleteFavorite}
+                  data={data}
+                />
+              );
+            }
+          })}
+        </div>
+      );
+    }
     return (
       <div style={styles.container}>
-        {data.map(data => <RowCurrency data={data} />)}
+        {data.map(data => (
+          <RowCurrency
+            addFavorite={addFavorite}
+            deleteFavorite={deleteFavorite}
+            data={data}
+          />
+        ))}
       </div>
     );
   }

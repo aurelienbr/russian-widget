@@ -10,8 +10,9 @@ const API = "https://front.bitqi.com/";
 
 class App extends Component {
   state = {
-    data: {},
-    originalData: {},
+    data: [],
+    originalData: [],
+    renderFav: false,
     width: 0,
     loading: true,
     orderedByAlphabet: false,
@@ -28,16 +29,20 @@ class App extends Component {
     });
     axios.get(API + "/api/fo/Market/GetMarkets").then(response => {
       let finalArray = [];
+      let index = 0;
       response.data.marketsList.forEach(element => {
         element.derivedCurrencyList.forEach(newArray => {
           finalArray = [
             ...finalArray,
             {
+              id: index,
               currencyName: element.currencyName,
               derivedCurrencyName: newArray.derivedCurrencyName,
-              price: newArray.price
+              price: newArray.price,
+              favorite: false
             }
           ];
+          index++;
         });
       });
       this.setState({
@@ -104,14 +109,49 @@ class App extends Component {
         }
       })
       .filter(value => value !== undefined);
+
     this.setState({
-      data: newArray
+      data: newArray,
+      renderFav: false
+    });
+  };
+
+  addFavorite = dataToFav => {
+    const { data } = this.state;
+    const arrayWithFav = data.map(element => {
+      if (dataToFav.id === element.id) return { ...element, favorite: true };
+      return element;
+    });
+
+    this.setState({
+      data: arrayWithFav,
+      originalData: arrayWithFav
+    });
+  };
+
+  deleteFavorite = id => {
+    const { data } = this.state;
+    const arrayWithFav = data.map(element => {
+      if (id === element.id) return { ...element, favorite: false };
+      return element;
+    });
+
+    this.setState({
+      data: arrayWithFav,
+      originalData: arrayWithFav
+    });
+  };
+
+  renderFavorites = () => {
+    this.setState({
+      renderFav: true
     });
   };
 
   resetArray = () => {
     this.setState({
-      data: this.state.originalData
+      data: this.state.originalData,
+      renderFav: false
     });
   };
 
@@ -121,7 +161,8 @@ class App extends Component {
       width,
       loading,
       orderedByPrice,
-      orderedByAlphabet
+      orderedByAlphabet,
+      renderFav
     } = this.state;
     if (loading) {
       return <div />;
@@ -145,6 +186,7 @@ class App extends Component {
         <MenuWidget
           resetArray={this.resetArray}
           findByCurrency={this.findByCurrency}
+          renderFavorites={this.renderFavorites}
         />
         <HeaderTable
           orderedByPrice={orderedByPrice}
@@ -152,7 +194,12 @@ class App extends Component {
           orderByPrice={this.orderByPrice}
           orderByAlphabet={this.orderByAlphabet}
         />
-        <MainTable data={data} />
+        <MainTable
+          data={data}
+          renderFav={renderFav}
+          addFavorite={this.addFavorite}
+          deleteFavorite={this.deleteFavorite}
+        />
       </div>
     );
   }

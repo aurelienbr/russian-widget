@@ -1,9 +1,11 @@
 import React from "react";
+import FavEmpty from "react-icons/lib/md/favorite-border";
+import FavFull from "react-icons/lib/md/favorite";
 
 class RowCurrency extends React.Component {
   state = {
-    dataSockets: {},
-    loading: true
+    /*dataSockets: {},
+    loading: true*/
   };
   /*constructor(props) {
     super(props);
@@ -33,12 +35,28 @@ class RowCurrency extends React.Component {
     }
     return `${currencyName} / ${derivedCurrencyName}`;
   }
+
+  addFavorite = () => {
+    const { addFavorite, data } = this.props;
+    addFavorite(data);
+  };
+
+  deleteFavorite = () => {
+    const { deleteFavorite, data } = this.props;
+    deleteFavorite(data.id);
+  };
+
   render() {
     const { data } = this.props;
 
     return (
       <div>
         <div style={styles.containerRow}>
+          {data.favorite ? (
+            <FavFull onClick={this.deleteFavorite} />
+          ) : (
+            <FavEmpty onClick={this.addFavorite} />
+          )}
           <div style={styles.containerText}>
             <p style={styles.text}>
               {this.renderCurrency(data.currencyName, data.derivedCurrencyName)}
@@ -60,7 +78,9 @@ class RowCurrency extends React.Component {
 const styles = {
   containerRow: {
     display: "flex",
-    justifyContent: "space-around"
+    justifyContent: "space-around",
+    alignItems: "center",
+    padding: 5
   },
   containerText: {
     flex: 1,
