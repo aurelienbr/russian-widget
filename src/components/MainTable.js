@@ -39,12 +39,11 @@ class MainTable extends React.Component {
 
 const styles = {
   container: {
-    height: "100%",
     border: "1px solid #95a5a6",
     display: "flex",
     flexDirection: "column",
     flex: 4,
-    overflowY: "scroll"
+    overflowY: "auto"
   }
 };
 

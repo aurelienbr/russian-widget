@@ -18,7 +18,9 @@ class App extends Component {
     width: 0,
     loading: true,
     orderedByAlphabet: false,
-    orderedByPrice: false
+    orderedByPrice: false,
+    orderedByVolume: false,
+    orderedBy: "volume"
   };
 
   componentDidMount() {
@@ -48,13 +50,13 @@ class App extends Component {
           ];
           index++;
         });
+      });
 
-        dataInput = response.data.marketsList.map((element, i) => {
-          return {
-            value: element.currencyName,
-            label: element.currencyName
-          };
-        });
+      dataInput = response.data.marketsList.map((element, i) => {
+        return {
+          value: element.currencyName,
+          label: element.currencyName
+        };
       });
 
       this.setState({
@@ -63,6 +65,7 @@ class App extends Component {
         dataInput,
         loading: false
       });
+      this.orderByVolume();
     });
   }
 
@@ -84,7 +87,8 @@ class App extends Component {
     }
     this.setState({
       data: sortedArray,
-      orderedByAlphabet: !this.state.orderedByAlphabet
+      orderedByAlphabet: !this.state.orderedByAlphabet,
+      orderedBy: "alphabet"
     });
   };
 
@@ -106,7 +110,8 @@ class App extends Component {
     }
     this.setState({
       data: sortedArray,
-      orderedByVolume: !this.state.orderedByVolume
+      orderedByVolume: !this.state.orderedByVolume,
+      orderedBy: "volume"
     });
   };
 
@@ -128,7 +133,8 @@ class App extends Component {
     }
     this.setState({
       data: sortedArray,
-      orderedByPrice: !this.state.orderedByPrice
+      orderedByPrice: !this.state.orderedByPrice,
+      orderedBy: "price"
     });
   };
 
@@ -209,7 +215,8 @@ class App extends Component {
       renderFav,
       orderedByVolume,
       dataInput,
-      value
+      value,
+      orderedBy
     } = this.state;
 
     if (loading) {
@@ -245,6 +252,7 @@ class App extends Component {
           orderedByVolume={orderedByVolume}
           orderByVolume={this.orderByVolume}
           orderByPrice={this.orderByPrice}
+          orderedBy={orderedBy}
           orderByAlphabet={this.orderByAlphabet}
         />
         <MainTable

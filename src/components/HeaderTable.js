@@ -1,8 +1,9 @@
 import React from "react";
 import ArrowDown from "react-icons/lib/fa/long-arrow-down";
+import ArrowUp from "react-icons/lib/fa/long-arrow-up";
 
 class HeaderTable extends React.Component {
-  renderArrow = value => (value ? <ArrowDown /> : null);
+  renderArrow = value => (value ? <ArrowDown /> : <ArrowUp />);
   render() {
     const {
       orderByAlphabet,
@@ -10,7 +11,8 @@ class HeaderTable extends React.Component {
       orderedByAlphabet,
       orderedByPrice,
       orderedByVolume,
-      orderByVolume
+      orderByVolume,
+      orderedBy
     } = this.props;
 
     return (
@@ -21,7 +23,10 @@ class HeaderTable extends React.Component {
           className="buttonHeader"
         >
           <p style={styles.text}>
-            Tickers {this.renderArrow(orderedByAlphabet)}
+            Tickers{" "}
+            {orderedBy === "alphabet"
+              ? this.renderArrow(orderedByAlphabet)
+              : null}
           </p>
         </div>
         <div
@@ -29,14 +34,20 @@ class HeaderTable extends React.Component {
           style={styles.containerButton}
           className="buttonHeader"
         >
-          <p style={styles.text}>Volume {this.renderArrow(orderedByVolume)}</p>
+          <p style={styles.text}>
+            Volume{" "}
+            {orderedBy === "volume" ? this.renderArrow(orderedByVolume) : null}
+          </p>
         </div>
         <div
           onClick={orderByPrice}
           style={styles.containerButton}
           className="buttonHeader"
         >
-          <p style={styles.text}>Price {this.renderArrow(orderedByPrice)}</p>
+          <p style={styles.text}>
+            Price{" "}
+            {orderedBy === "price" ? this.renderArrow(orderedByPrice) : null}
+          </p>
         </div>
         <div style={styles.containerButton} className="buttonHeader">
           <p style={styles.text}>Change</p>
