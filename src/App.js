@@ -48,7 +48,8 @@ class App extends Component {
           ];
           index++;
         });
-        dataInput = finalArray.map((element, i) => {
+
+        dataInput = response.data.marketsList.map((element, i) => {
           return {
             value: element.currencyName,
             label: element.currencyName
@@ -135,10 +136,10 @@ class App extends Component {
     const { originalData } = this.state;
     const newArray = originalData
       .map(element => {
-        if (element.derivedCurrencyName === currencyName) {
+        if (element.currencyName === currencyName) {
           return {
             id: element.id,
-            derivedCurrencyName: element.currencyName,
+            derivedCurrencyName: element.derivedCurrencyName,
             price: element.price,
             volume: element.volume
           };
@@ -191,7 +192,12 @@ class App extends Component {
     });
   };
 
-  handleInput = value => this.setState({ value });
+  handleInput = value => {
+    if (value !== null) {
+      this.findByCurrency(value.value);
+    }
+    this.setState({ value });
+  };
 
   render() {
     const {
@@ -205,7 +211,7 @@ class App extends Component {
       dataInput,
       value
     } = this.state;
-    console.log(dataInput);
+
     if (loading) {
       return <div />;
     }

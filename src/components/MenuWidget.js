@@ -23,7 +23,7 @@ class MenuWidget extends React.Component {
 
   render() {
     const { selected } = this.state;
-    const { dataSearch, dataInput, onChangeInput, options, value } = this.props;
+    const { onChangeInput, options, value } = this.props;
 
     return (
       <div style={styles.container}>

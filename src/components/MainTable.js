@@ -26,6 +26,7 @@ class MainTable extends React.Component {
       <div style={styles.container}>
         {data.map(data => (
           <RowCurrency
+            key={data.id}
             addFavorite={addFavorite}
             deleteFavorite={deleteFavorite}
             data={data}
